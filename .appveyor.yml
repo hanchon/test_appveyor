@@ -75,7 +75,9 @@ install:
 
 
 before_build:
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
+  - cd C:\Program Files (x86)\
+  - dir
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.1\VC\vcvarsall.bat" amd64
   - mkdir C:\projects\test_appveyor
   - cd C:\projects\test_appveyor
   - git clone https://github.com/bitprim/secp256k1
