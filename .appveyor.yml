@@ -42,7 +42,29 @@ install:
   - move C:\projects\deps\cmake-* C:\projects\deps\cmake # Move to a version-agnostic directory
   - set PATH=C:\projects\deps\cmake\bin;%PATH%
   - cmake --version
-
+  
+  ############################################################################
+  # Install boost with fpic
+  ############################################################################
+  - mkdir C:\projects\deps\boost
+  - mkdir C:\projects\deps\boost\stage
+  - mkdir C:\projects\deps\boost\boost
+  # LIB
+  - set BOOST_LIB_URL="http://repo.bitprim.org/packages/binary/boost_msvc_141_fpic.7z"
+  - appveyor DownloadFile %BOOST_LIB_URL% -FileName boost_lib.7z
+  - 7z x boost_lib.7z -oC:\projects\deps\boost\stage > nul
+  - rename boost_msvc_141_fpic lib
+  - cd C:\projects\deps\boost\stage\lib
+  
+  # HEADERS
+  - set BOOST_H_URL="http://repo.bitprim.org/packages/binary/boost_1_64_include.7z"
+  - appveyor DownloadFile %BOOST_H_URL% -FileName boost_h.7z
+  - 7z x boost_h.7z -oC:\projects\deps\boost > nul
+  - cd C:\projects\deps\boost\boost
+  
+  #http://repo.bitprim.org/packages/binary/boost_msvc_141_fpic.7z
+  - set BOOST_ROOT=C:\projects\deps\boost\
+  
   ############################################################################
   # Setup the path to Clang-cl
   ############################################################################
@@ -56,7 +78,14 @@ before_build:
   - cd C:\projects\test_appveyor
   - git clone https://github.com/bitprim/secp256k1
   - cd secp256k1
-  
+  - mkdir build
+  - cd build
+  - cmake .. -GNinja -DCMAKE_CXX_COMPILER=clang-cl -DENABLE_TESTS=OFF -DWITH_EXAMPLES=OFF -DWITH_REMOTE_DATABASE=OFF -DWITH_REMOTE_BLOCKCHAIN=OFF -DWITH_LITECOIN=OFF -DWITH_TESTS=OFF -DENABLE_MODULE_RECOVERY=ON -DWITH_TOOLS=OFF 
+  - cmake --build .
+
+  - cd C:\projects\test_appveyor
+  - git clone https://github.com/bitprim/bitprim-core
+  - cd bitprim-core
   - mkdir build
   - cd build
   - cmake .. -GNinja -DCMAKE_CXX_COMPILER=clang-cl -DENABLE_TESTS=OFF -DWITH_EXAMPLES=OFF -DWITH_REMOTE_DATABASE=OFF -DWITH_REMOTE_BLOCKCHAIN=OFF -DWITH_LITECOIN=OFF -DWITH_TESTS=OFF -DENABLE_MODULE_RECOVERY=ON -DWITH_TOOLS=OFF 
