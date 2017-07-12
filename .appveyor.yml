@@ -47,15 +47,15 @@ install:
   # Install boost with fpic
   ############################################################################
   - mkdir C:\projects\deps\boost
-  #- mkdir C:\projects\deps\boost\stage
+  - mkdir C:\projects\deps\boost\stage
   - mkdir C:\projects\deps\boost\boost
   # LIB
   - set BOOST_LIB_URL="http://repo.bitprim.org/packages/binary/boost_msvc_141_fpic.7z"
   - appveyor DownloadFile %BOOST_LIB_URL% -FileName boost_lib.7z
-  - 7z x boost_lib.7z -oC:\projects\deps\boost > nul
-  - cd C:\projects\deps\boost
+  - 7z x boost_lib.7z -oC:\projects\deps\boost\stage > nul
+  - cd C:\projects\deps\boost\stage
   - rename boost_msvc_141_fpic lib
-  - cd C:\projects\deps\boost\lib
+  - cd C:\projects\deps\boost\stage\lib
   
   # HEADERS
   - set BOOST_H_URL="http://repo.bitprim.org/packages/binary/boost_1_64_include.7z"
@@ -89,7 +89,7 @@ before_build:
   - cd bitprim-core
   - mkdir build
   - cd build
-  - cmake .. -GNinja -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_C_COMPILER=clang-cl -DENABLE_TESTS=OFF -DWITH_EXAMPLES=OFF -DWITH_REMOTE_DATABASE=OFF -DWITH_REMOTE_BLOCKCHAIN=OFF -DWITH_LITECOIN=OFF -DWITH_TESTS=OFF -DENABLE_MODULE_RECOVERY=ON -DWITH_TOOLS=OFF -DBOOST_ROOT="C:\projects\deps\boost\"
+  - cmake .. -GNinja -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_C_COMPILER=clang-cl -DENABLE_TESTS=OFF -DWITH_EXAMPLES=OFF -DWITH_REMOTE_DATABASE=OFF -DWITH_REMOTE_BLOCKCHAIN=OFF -DWITH_LITECOIN=OFF -DWITH_TESTS=OFF -DENABLE_MODULE_RECOVERY=ON -DWITH_TOOLS=OFF -DBOOST_ROOT="C:\projects\deps\boost\" -DBOOST_INCLUDEDIR="c:\projects\deps\boost\boost" -DBOOST_LIBRARYDIR="c:\projects\deps\boost\stage\lib"
   - cmake --build .
 
 
