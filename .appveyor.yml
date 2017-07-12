@@ -5,7 +5,7 @@
 shallow_clone: true
 
 os:
-  - Visual Studio 2015
+  - Visual Studio 2014
 
 build:
   verbosity: detailed
@@ -52,7 +52,11 @@ install:
 
 before_build:
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
+  - mkdir C:\projects\test_appveyor
   - cd C:\projects\test_appveyor
+  - git clone https://github.com/bitprim/secp256k1
+  - cd secp256k1
+  
 
 
 build_script:
