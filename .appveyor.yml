@@ -52,7 +52,7 @@ install:
 
 before_build:
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
-  - cd C:\projects\hana
+  - cd C:\projects\test_appveyor
 
 
 build_script:
