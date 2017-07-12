@@ -84,6 +84,7 @@ before_build:
   - cmake .. -GNinja -DCMAKE_CXX_COMPILER=clang-cl -DENABLE_TESTS=OFF -DWITH_EXAMPLES=OFF -DWITH_REMOTE_DATABASE=OFF -DWITH_REMOTE_BLOCKCHAIN=OFF -DWITH_LITECOIN=OFF -DWITH_TESTS=OFF -DENABLE_MODULE_RECOVERY=ON -DWITH_TOOLS=OFF 
   - cmake --build .
 
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
   - cd C:\projects\test_appveyor
   - git clone https://github.com/bitprim/bitprim-core
   - cd bitprim-core
