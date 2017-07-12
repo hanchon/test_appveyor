@@ -60,7 +60,7 @@ before_build:
   - mkdir build
   - cd build
   - cmake .. -GNinja -DCMAKE_CXX_COMPILER=clang-cl
-  - cmake --build . --target check
+  - cmake --build .
 
 
 build_script:
