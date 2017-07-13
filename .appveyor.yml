@@ -71,10 +71,6 @@ install:
 
 
 before_build:
-  - cd C:\Program Files (x86)\Microsoft Visual Studio
-  - dir
-  - cd C:\Program Files (x86)\Microsoft Visual Studio\2017\
-  - dir
   - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat" amd64
   - mkdir C:\projects\test_appveyor
   - cd C:\projects\test_appveyor
@@ -83,22 +79,74 @@ before_build:
   - mkdir build
   - cd build
   - cmake .. -GNinja -DENABLE_TESTS=OFF -DWITH_EXAMPLES=OFF -DWITH_REMOTE_DATABASE=OFF -DWITH_REMOTE_BLOCKCHAIN=OFF -DWITH_LITECOIN=OFF -DWITH_TESTS=OFF -DENABLE_MODULE_RECOVERY=ON -DWITH_TOOLS=OFF 
-  #-DCMAKE_CXX_COMPILER=clang-cl
   - cmake --build .
 
   - cd C:\projects\test_appveyor
-  - git clone https://github.com/bitprim/bitprim-core
+  - git clone https://github.com/bitprim/bitprim-core -b c-api
   - cd bitprim-core
   - mkdir build
   - cd build
   - cmake .. -GNinja -DENABLE_TESTS=OFF -DWITH_EXAMPLES=OFF -DWITH_REMOTE_DATABASE=OFF -DWITH_REMOTE_BLOCKCHAIN=OFF -DWITH_LITECOIN=OFF -DWITH_TESTS=OFF -DENABLE_MODULE_RECOVERY=ON -DWITH_TOOLS=OFF -DBOOST_ROOT=C:\projects\deps\boost
-  #-DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_C_COMPILER=clang-cl
+  - cmake --build .
+  
+  
+  - cd C:\projects\test_appveyor
+  - git clone https://github.com/bitprim/bitprim-database -b c-api
+  - cd bitprim-database
+  - mkdir build
+  - cd build
+  - cmake .. -GNinja -DENABLE_TESTS=OFF -DWITH_EXAMPLES=OFF -DWITH_REMOTE_DATABASE=OFF -DWITH_REMOTE_BLOCKCHAIN=OFF -DWITH_LITECOIN=OFF -DWITH_TESTS=OFF -DENABLE_MODULE_RECOVERY=ON -DWITH_TOOLS=OFF -DBOOST_ROOT=C:\projects\deps\boost
+  - cmake --build .
+  
+  
+  - cd C:\projects\test_appveyor
+  - git clone https://github.com/bitprim/bitprim-network -b c-api
+  - cd bitprim-network
+  - mkdir build
+  - cd build
+  - cmake .. -GNinja -DENABLE_TESTS=OFF -DWITH_EXAMPLES=OFF -DWITH_REMOTE_DATABASE=OFF -DWITH_REMOTE_BLOCKCHAIN=OFF -DWITH_LITECOIN=OFF -DWITH_TESTS=OFF -DENABLE_MODULE_RECOVERY=ON -DWITH_TOOLS=OFF -DBOOST_ROOT=C:\projects\deps\boost
+  - cmake --build .
+
+  - cd C:\projects\test_appveyor
+  - git clone https://github.com/bitprim/bitprim-consensus -b c-api
+  - cd bitprim-consensus
+  - mkdir build
+  - cd build
+  - cmake .. -GNinja -DENABLE_TESTS=OFF -DWITH_EXAMPLES=OFF -DWITH_REMOTE_DATABASE=OFF -DWITH_REMOTE_BLOCKCHAIN=OFF -DWITH_LITECOIN=OFF -DWITH_TESTS=OFF -DENABLE_MODULE_RECOVERY=ON -DWITH_TOOLS=OFF -DBOOST_ROOT=C:\projects\deps\boost
+  - cmake --build .
+  - cd C:\projects\test_appveyor
+
+  - cd C:\projects\test_appveyor
+  - git clone https://github.com/bitprim/bitprim-blockchain -b c-api
+  - cd bitprim-blockchain
+  - mkdir build
+  - cd build
+  - cmake .. -GNinja -DENABLE_TESTS=OFF -DWITH_EXAMPLES=OFF -DWITH_REMOTE_DATABASE=OFF -DWITH_REMOTE_BLOCKCHAIN=OFF -DWITH_LITECOIN=OFF -DWITH_TESTS=OFF -DENABLE_MODULE_RECOVERY=ON -DWITH_TOOLS=OFF -DBOOST_ROOT=C:\projects\deps\boost
+  - cmake --build .
+
+  - cd C:\projects\test_appveyor
+  - git clone https://github.com/bitprim/bitprim-node -b c-api
+  - cd bitprim-node
+  - mkdir build
+  - cd build
+  - cmake .. -GNinja -DENABLE_TESTS=OFF -DWITH_EXAMPLES=OFF -DWITH_REMOTE_DATABASE=OFF -DWITH_REMOTE_BLOCKCHAIN=OFF -DWITH_LITECOIN=OFF -DWITH_TESTS=OFF -DENABLE_MODULE_RECOVERY=ON -DWITH_TOOLS=OFF -DBOOST_ROOT=C:\projects\deps\boost
+  - cmake --build .
+
+  - cd C:\projects\test_appveyor
+  - git clone https://github.com/bitprim/bitprim-node-cint
+  - cd bitprim-node-cint
+  - mkdir build
+  - cd build
+  - cmake .. -GNinja -DENABLE_TESTS=OFF -DWITH_EXAMPLES=OFF -DWITH_REMOTE_DATABASE=OFF -DWITH_REMOTE_BLOCKCHAIN=OFF -DWITH_LITECOIN=OFF -DWITH_TESTS=OFF -DENABLE_MODULE_RECOVERY=ON -DWITH_TOOLS=OFF -DBOOST_ROOT=C:\projects\deps\boost
   - cmake --build .
 
 
+
 build_script:
- # - mkdir build
- # - cd build
- # - cmake .. -GNinja -DCMAKE_CXX_COMPILER=clang-cl
- # - cmake --build . --target check
- - echo "build_script"
+  - cd C:\projects\test_appveyor
+  - git clone https://github.com/bitprim/bitprim-node-cint
+  - cd bitprim-node-cint
+  - mkdir build
+  - cd build
+  - cmake .. -GNinja -DENABLE_TESTS=OFF -DWITH_EXAMPLES=OFF -DWITH_REMOTE_DATABASE=OFF -DWITH_REMOTE_BLOCKCHAIN=OFF -DWITH_LITECOIN=OFF -DWITH_TESTS=OFF -DENABLE_MODULE_RECOVERY=ON -DWITH_TOOLS=OFF -DBOOST_ROOT=C:\projects\deps\boost
+  - cmake --build .
